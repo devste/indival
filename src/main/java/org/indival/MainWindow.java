@@ -26,7 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import org.example.idifosop.fileParser.indigraphParser;
+import org.indival.fileParser.indigraphParser;
 import org.indival.filereader.IdgFileVisitor;
 import org.indival.filereader.IdgParser;
 import org.indival.gui.DecisionOptionControl;

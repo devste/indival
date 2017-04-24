@@ -5,8 +5,8 @@ import java.io.InputStream;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.example.idifosop.fileParser.indigraphLexer;
-import org.example.idifosop.fileParser.indigraphParser;
+import org.indival.fileParser.indigraphLexer;
+import org.indival.fileParser.indigraphParser;
 
 public class IdgParser {
 

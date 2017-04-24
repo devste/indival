@@ -2,17 +2,14 @@ package org.indival.filereader;
 
 import java.util.List;
 
-// import org.antlr.v4.runtime.*;
-// import org.antlr.v4.runtime.misc.*;
-// import org.antlr.v4.runtime.tree.*;
-import org.example.idifosop.fileParser.indigraphBaseVisitor;
-import org.example.idifosop.fileParser.indigraphParser;
-import org.example.idifosop.fileParser.indigraphParser.AttributeContext;
-import org.example.idifosop.fileParser.indigraphParser.DecisionOptionContext;
-import org.example.idifosop.fileParser.indigraphParser.EdgeDefContext;
-import org.example.idifosop.fileParser.indigraphParser.NodeDeclContext;
-import org.example.idifosop.fileParser.indigraphParser.NodeDefContext;
-import org.example.idifosop.fileParser.indigraphParser.NodeValueContext;
+import org.indival.fileParser.indigraphBaseVisitor;
+import org.indival.fileParser.indigraphParser;
+import org.indival.fileParser.indigraphParser.AttributeContext;
+import org.indival.fileParser.indigraphParser.DecisionOptionContext;
+import org.indival.fileParser.indigraphParser.EdgeDefContext;
+import org.indival.fileParser.indigraphParser.NodeDeclContext;
+import org.indival.fileParser.indigraphParser.NodeDefContext;
+import org.indival.fileParser.indigraphParser.NodeValueContext;
 import org.indival.model.IndiNode;
 import org.indival.model.IndiNodeBase;
 import org.indival.model.IndiNodeDecision;
