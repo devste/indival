@@ -48,7 +48,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private transient Logger log = LoggerFactory.getLogger(this.getClass().toString());
 
 	public MainWindow() {
-		super("INfluence DIagramme GRaphing VAlues");
+		super("INfluence DIagramme with VALues");
 
 		log.info("Default character encoding: " + Charset.defaultCharset().name());
 
