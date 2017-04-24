@@ -1,0 +1,48 @@
+(uncert1):
+name=Uncertainty 1
+
+(uncert2):
+name=Uncertainty 2
+
+[dec1]:
+name=Decision 1
+
+*optiona*:
+name=Option a
+<val1>=1
+<val2>=2
+<val3>=3
+
+*optionb*:
+name=Option b
+<val2>=4
+
+[dec2]:
+name=Decision 2
+
+[dec3]:
+name=Decision 3
+
+*optionumlaut*:
+name=Option äöü
+<val1>=1
+<val2>=3
+
+*optionnoname*:
+name=Option No Name
+<val1>=2
+
+<val1>:
+name=Value 1
+
+<val2>:
+name=Value 2
+
+(uncert1) (uncert2)
+(uncert1) [dec2]
+(uncert2) [dec1]
+[dec1] [dec3]
+[dec2] <val1>
+[dec1] <val2>
+[dec3] <val1>
+[dec3] <val2>
