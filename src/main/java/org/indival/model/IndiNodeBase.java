@@ -59,11 +59,6 @@ public class IndiNodeBase implements IndiNode, Serializable {
 	this.name = name;
     }
 
-    @Override
-    public String getLabel() {
-	return this.name;
-    }
-
     // @Override
     // public HashMap<String, IndiNode> getDestinationNodes() {
     // return this.destinationNodes;

@@ -10,8 +10,6 @@ public interface IndiNode {
 
     public void setName(String name);
 
-    public String getLabel();
-
     public boolean addDestinationNode(IndiNode value);
 
     public boolean isDestinationNode(String nodeId);
