@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -195,7 +196,8 @@ public class MainWindow extends JFrame implements ActionListener {
 	private void processFile(InputStream fis) {
 		indigraphParser idg;
 		try {
-			idg = IdgParser.parse(fis);
+			InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+			idg = IdgParser.parse(isr);
 			indigraphParser.IndigraphContext idgctx = idg.indigraph();
 			IdgFileVisitor visitor = new IdgFileVisitor(project);
 			visitor.visit(idgctx);
