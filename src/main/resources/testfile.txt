@@ -15,7 +15,7 @@ name=Option a
 
 *optionb*:
 name=Option b
-<val2>=4
+<val2>=4.5
 
 [dec2]:
 name=Decision 2

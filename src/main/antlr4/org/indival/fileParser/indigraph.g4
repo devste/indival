@@ -20,7 +20,7 @@ edgeUncertDec: nodeUncertainty ' ' nodeDecision;
 edgeDecDec: nodeDecision ' ' nodeDecision;
 edgeDecValue: nodeDecision ' ' nodeValue;
 
-fragment ALLOWED_VALS : [\ \/!$%&'´?\-];
+fragment ALLOWED_VALS : [\ \/!$%&'´?\-\.];
 fragment LETTERS : [a-zA-Z] ;
 fragment NUMBERS : [0-9] ;
 
