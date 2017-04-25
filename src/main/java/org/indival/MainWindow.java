@@ -39,6 +39,8 @@ import org.indival.model.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mxgraph.swing.mxGraphComponent;
+
 public class MainWindow extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = -8706457057984469938L;
@@ -228,7 +230,7 @@ public class MainWindow extends JFrame implements ActionListener {
     }
 
     private void applyLayout() {
-	this.mge.applyLayout();
+	this.mge.layoutCompactTree();
 	Container cp = getContentPane();
 	cp.revalidate();
 	cp.repaint();
@@ -238,6 +240,9 @@ public class MainWindow extends JFrame implements ActionListener {
     private void showIDEdit() {
 	removeStartMessage();
 	this.mge = new MxGraphEdit(this.project.getModel(), this.messages);
+	mxGraphComponent comp = this.mge.getComponent();
+	comp.getViewport().setOpaque(true);
+	comp.getViewport().setBackground(Color.WHITE);
 	Container cp = this.getContentPane();
 	cp.add(this.mge.getComponent(), BorderLayout.CENTER);
 	cp.revalidate();
