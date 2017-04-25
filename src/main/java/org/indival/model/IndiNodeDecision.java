@@ -3,7 +3,7 @@ package org.indival.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class IndiNodeDecision extends IndiNodeBase {
+public class IndiNodeDecision extends IndiNodeBase implements DecisionOptionSelection {
     private String selectedOption = "";
 
     /**
