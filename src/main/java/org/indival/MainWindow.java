@@ -223,7 +223,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		pack();
 
 		// Decision option control
-		this.doc = new DecisionOptionControl(project.getDecisionNodeList(), this);
+		this.doc = new DecisionOptionControl(project.getSelectionNodeList(), this);
 		cp.add(this.doc, BorderLayout.LINE_START);
 		cp.revalidate();
 		cp.repaint();
