@@ -72,7 +72,7 @@ public class IndiNodeDecision extends IndiNodeBase {
 		String indoNodeId = this.getNodeId() + "_" + nodeId;
 		IndiNodeDecisionOption indo = new IndiNodeDecisionOption(indoNodeId, this);
 		indo.setName(nodeId + " - " + in.getName());
-		this.implicitOptions.put(indoNodeId, indo);
+		this.implicitOptions.put(nodeId, indo);
 	    }
 	    return true;
 	} else {
