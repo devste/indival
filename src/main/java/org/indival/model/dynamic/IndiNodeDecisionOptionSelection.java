@@ -31,6 +31,12 @@ public class IndiNodeDecisionOptionSelection implements DecisionOptionSelection 
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.indival.model.DecisionOptionSelection#unsetSelectedOption()
+	 * 
+	 * Unsets any selection previously made.
+	 */
 	@Override
 	public void unsetSelectedOption() {
 		this.selectedOption = "";

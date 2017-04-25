@@ -11,7 +11,7 @@ public class IndiNodeBase implements IndiNode, Serializable {
     private String nodeId = "";
     private IndiNodeType type;
     private String name = "";
-    private HashMap<String, IndiNode> destinationNodes = new HashMap<>();
+    protected HashMap<String, IndiNode> destinationNodes = new HashMap<>();
 
     public IndiNodeBase() {
     }
