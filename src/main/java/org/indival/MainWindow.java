@@ -262,18 +262,11 @@ public class MainWindow extends JFrame implements ActionListener {
      */
     public void updateID() {
 	log.info("updating Influence diagramme");
-	log.debug("Current object id: " + this.mge.toString());
 	Container cp = this.getContentPane();
-	// cp.remove(this.mge.getComponent());
 	this.mge.getComponent().refresh();
 	cp.revalidate();
 	cp.repaint();
-	log.debug("Currently set component number: " + cp.getComponentCount());
-	// this.mge = new MxGraphEdit2(this.project.getModel(), this.messages);
-	log.debug("New object id: " + this.mge.toString());
 	this.mge.getComponent().setVisible(true);
-	// cp.add(this.mge.getComponent(), BorderLayout.CENTER);
-	log.debug("Currently set component number: " + cp.getComponentCount());
 	cp.revalidate();
 	cp.repaint();
 	pack();
