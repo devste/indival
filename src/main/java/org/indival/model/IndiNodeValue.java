@@ -42,7 +42,7 @@ public class IndiNodeValue extends IndiNodeBase {
 	String name = this.getName();
 	String currentValue = this.calculateCurrentValue().toString();
 	String unit = this.unit;
-	return name + ": " + currentValue + " " + unit;
+	return name + "\n" + currentValue + "\n" + unit;
     }
 
     /**
