@@ -21,7 +21,7 @@ public class IndiNodeValueTest {
 
     @Test
     public final void testToString() {
-	assertEquals(": 0.0 ", empty.toString());
+	assertEquals("\n0.0\n", empty.toString());
     }
 
     @Test
