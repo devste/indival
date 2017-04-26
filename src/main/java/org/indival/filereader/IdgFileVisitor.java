@@ -102,6 +102,18 @@ public class IdgFileVisitor extends indigraphBaseVisitor<String> {
 				processDecisionOption(ind, doc);
 			}
 		}
+		// If it's a value node, we should also process the unit attribute
+		if(node.getType() == IndiNodeType.VALUE){
+		    IndiNodeValue inv = (IndiNodeValue) node;
+			for (AttributeContext ac : acList) {
+				String name = ac.attrName().getText();
+				String value = ac.attrValue().getText();
+				if ("unit".equals(name)) {
+					log.debug("Setting unit on node " + nodeId + ": " + value);
+					inv.setUnit(value);
+				}
+			}
+		}
 		// add all nodes to mxGraph
 		String nodeType = node.getType().toString();
 		if (this.model.getCell(nodeId) == null) {
