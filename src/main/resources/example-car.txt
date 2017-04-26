@@ -1,0 +1,41 @@
+[buy]:
+name=Buy or lease a car
+
+*buy*:
+name=Buy
+<timesaving>=-4
+
+*lease*:
+name=Lease
+<timesaving>=4
+<runningcost>=200
+
+[model]:
+name=Select car model
+
+*small*:
+name=Small car
+
+*medium*:
+name=Medium car
+
+*huge*:
+name=Huge car
+
+<initcost>:
+name=Initial costs
+unit=CHF
+
+<runningcost>:
+name=Running costs
+unit=CHF/month
+
+<timesaving>:
+name=Time saving
+unit=h/month
+
+[buy] <runningcost>
+[buy] <timesaving>
+[model] <initcost>
+[model] <runningcost>
+[model] <timesaving> 

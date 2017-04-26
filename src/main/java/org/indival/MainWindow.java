@@ -51,7 +51,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JScrollPane graphPane;
 	private JLabel startLabel;
 	private MxGraphEdit mge;
-	private DecisionOptionControl doc;
+	// private DecisionOptionControl doc;
 	private transient Logger log = LoggerFactory.getLogger(this.getClass().toString());
 
 	public MainWindow() {
@@ -102,9 +102,15 @@ public class MainWindow extends JFrame implements ActionListener {
 		menuItem.addActionListener(this);
 		menu.add(menuItem);
 
-		menuItem = new JMenuItem(messages.getString("menu.project.example"));
+		menuItem = new JMenuItem(messages.getString("menu.project.example-car"));
 		menuItem.setMnemonic(KeyEvent.VK_L);
-		menuItem.setActionCommand("projectExample");
+		menuItem.setActionCommand("projectExampleCar");
+		menuItem.addActionListener(this);
+		menu.add(menuItem);
+
+		menuItem = new JMenuItem(messages.getString("menu.project.example-software"));
+		menuItem.setMnemonic(KeyEvent.VK_L);
+		menuItem.setActionCommand("projectExampleSoftware");
 		menuItem.addActionListener(this);
 		menu.add(menuItem);
 
@@ -166,8 +172,11 @@ public class MainWindow extends JFrame implements ActionListener {
 		case "projectOpen":
 			openProjectFile(cp);
 			break;
-		case "projectExample":
-			openExampleProjectFile();
+		case "projectExampleCar":
+			openExampleCar();
+			break;
+		case "projectExampleSoftware":
+			openExampleSoftware();
 			break;
 		case "updateID":
 			updateID();
@@ -186,6 +195,7 @@ public class MainWindow extends JFrame implements ActionListener {
 			File ofile = fc.getSelectedFile();
 			if (ofile.exists()) {
 				try {
+					this.project = new Project();
 					this.projectFile = ofile.getCanonicalPath();
 					InputStream fis = new FileInputStream(this.projectFile);
 					processFile(fis);
@@ -197,8 +207,18 @@ public class MainWindow extends JFrame implements ActionListener {
 		}
 	}
 
-	private void openExampleProjectFile() {
-		String filename = "testfile.txt";
+	private void openExampleCar() {
+		this.project = new Project();
+		String filename = "example-car.txt";
+		log.info("reading example file " + filename);
+		InputStream in = getClass().getResourceAsStream("/" + filename);
+		processFile(in);
+		showIDEdit();
+	}
+
+	private void openExampleSoftware() {
+		this.project = new Project();
+		String filename = "example-software.txt";
 		log.info("reading example file " + filename);
 		InputStream in = getClass().getResourceAsStream("/" + filename);
 		processFile(in);
@@ -251,14 +271,15 @@ public class MainWindow extends JFrame implements ActionListener {
 		comp.getViewport().setOpaque(true);
 		comp.getViewport().setBackground(Color.WHITE);
 		Container cp = this.getContentPane();
+		cp.removeAll();
 		cp.add(this.mge.getComponent(), BorderLayout.CENTER);
 		cp.revalidate();
 		cp.repaint();
 		pack();
 
 		// Decision option control
-		this.doc = new DecisionOptionControl(project.getSelectionNodeList(), this);
-		cp.add(this.doc, BorderLayout.LINE_START);
+		DecisionOptionControl doc = new DecisionOptionControl(project.getSelectionNodeList(), this);
+		cp.add(doc, BorderLayout.LINE_START);
 		cp.revalidate();
 		cp.repaint();
 		pack();

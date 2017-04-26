@@ -1,0 +1,53 @@
+[module]:
+name=Create Invoicing Module
+
+*yes*:
+name=Yes
+
+*no*:
+name=No
+
+[moduleCap]:
+name=Invoicing Module Capabilities
+
+*invoicing*:
+name=Invoicing only
+
+*incoming*:
+name=Invoicing and incoming payments
+
+*errordetect*:
+name=Invoicing, incoming and error detection
+
+<create>:
+name=Cost of creating
+unit=persondays
+
+<creationtime>:
+name=Time to finish software
+unit=weeks
+
+<run>:
+name=Cost of running software
+unit=CHF / month
+
+<savings>:
+name=Reduction of manual work
+unit=persondays / month
+
+<corrections>:
+name=Increase in Quality
+unit=manual corrections / month
+
+<reaction>:
+name=Mean reaction time to detect errors
+unit=days
+
+[module] <creationtime>
+[module] [moduleCap]
+[moduleCap] <create>
+[moduleCap] <run>
+[moduleCap] <savings>
+[moduleCap] <corrections>
+[moduleCap] <reaction>
+[moduleCap] <creationtime>
