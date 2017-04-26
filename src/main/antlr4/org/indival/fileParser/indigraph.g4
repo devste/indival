@@ -26,5 +26,5 @@ fragment NUMBERS : [0-9] ;
 
 ID : ( LETTERS | NUMBERS )+;
 VALUE : ( LETTERS | NUMBERS | ALLOWED_VALS | '\u0080' .. '\ufffd' )+;
-NEWLINE : [\r\n];
+NEWLINE : ('\r' | '\n' | '\r\n');
 WHITESPACE : [ \t]+ -> skip;
