@@ -5,22 +5,24 @@ import java.util.List;
 
 import org.indival.fileParser.indigraphBaseVisitor;
 import org.indival.fileParser.indigraphParser;
+import org.indival.fileParser.indigraphParser.AttributeContext;
 import org.indival.fileParser.indigraphParser.EdgeDefContext;
 import org.indival.fileParser.indigraphParser.NodeDeclContext;
 import org.indival.fileParser.indigraphParser.NodeDefContext;
-import org.indival.model.stat.IvEdge;
-import org.indival.model.stat.IvEdgeBase;
-import org.indival.model.stat.IvNode;
-import org.indival.model.stat.IvNodeBase;
-import org.indival.model.stat.IvNodeType;
+import org.indival.model.stat.edge.IvEdge;
+import org.indival.model.stat.edge.IvEdgeBase;
 import org.indival.model.stat.jgrapht.IvGraph;
+import org.indival.model.stat.node.IvNode;
+import org.indival.model.stat.node.IvNodeBase;
+import org.indival.model.stat.node.IvNodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class IvFileVisitor extends indigraphBaseVisitor<String> {
 
     private Logger log = LoggerFactory.getLogger(this.getClass().toString());
-    // While visiting the file we need to keep track of the nodeId and map them to the objects.
+    // While visiting the file we need to keep track of the nodeId and map them
+    // to the objects.
     private HashMap<String, IvNode> nodeMap = new HashMap<>();
     private IvGraph graph;
 
@@ -108,8 +110,6 @@ public class IvFileVisitor extends indigraphBaseVisitor<String> {
 	for (EdgeDefContext edc : edlist) {
 	    visitEdgeDef(edc);
 	}
-	// TODO: alternative nodes require some very special processing. 1. add
-	// to decision 2. process value node links
 	return null;
     }
 
@@ -120,10 +120,20 @@ public class IvFileVisitor extends indigraphBaseVisitor<String> {
 	// visits each nodeType, where the visitor of each nodeType creates the
 	// node
 	String nodeId = visitNodeDecl(ndc);
-	log.trace("visitNodeDef: nodeId is %s", nodeId);
+	log.debug("visitNodeDef: nodeId is {}", nodeId);
 	// Then we get the node
 	IvNode ivnode = getNode(nodeId);
-	log.trace("visitNodeDef: node is %s", ivnode);
+	log.debug("visitNodeDef: node is {}", ivnode);
+	// Then we add all attributes to a node
+	if (ivnode != null) {
+	    List<AttributeContext> acList = ctx.attribute();
+	    for (AttributeContext ac : acList) {
+		String name = ac.attrName().getText();
+		String value = ac.attrValue().getText();
+		log.debug("Node {}. Adding Attribute: ({} -> {})", ivnode, name, value);
+		ivnode.setAttribute(name, value);
+	    }
+	}
 	return null;
     }
 
@@ -183,6 +193,14 @@ public class IvFileVisitor extends indigraphBaseVisitor<String> {
     public String visitEdgeDecValue(indigraphParser.EdgeDecValueContext ctx) {
 	String sourceId = ctx.nodeDecision().nodeId().getText();
 	String destId = ctx.nodeValue().nodeId().getText();
+	addEdge(sourceId, destId);
+	return null;
+    }
+    
+    @Override
+    public String visitEdgeDecAlt(indigraphParser.EdgeDecAltContext ctx){
+	String sourceId = ctx.nodeDecision().nodeId().getText();
+	String destId = ctx.nodeAlternative().nodeId().getText();
 	addEdge(sourceId, destId);
 	return null;
     }

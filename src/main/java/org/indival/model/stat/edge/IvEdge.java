@@ -1,4 +1,4 @@
-package org.indival.model.stat;
+package org.indival.model.stat.edge;
 
 /*
  * Any edge in Indival should implement this interface.

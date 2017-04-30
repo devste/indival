@@ -1,4 +1,6 @@
-package org.indival.model.stat;
+package org.indival.model.stat.edge;
+
+import org.indival.model.stat.node.IvNodeType;
 
 /*
  * This class implements a Matcher to return the IvEdgeType corresponding to the IvNodeType of the source and the destination node.

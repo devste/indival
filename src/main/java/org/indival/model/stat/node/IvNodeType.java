@@ -1,4 +1,4 @@
-package org.indival.model.stat;
+package org.indival.model.stat.node;
 
 /*
  * The central enum declaring all possible IvNode types.

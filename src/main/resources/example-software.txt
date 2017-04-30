@@ -1,6 +1,9 @@
 [module]:
 name=Create Invoicing Module
 
+[module] *yes*
+[module] *no*
+
 *yes*:
 name=Yes
 
@@ -10,14 +13,21 @@ name=No
 [moduleCap]:
 name=Invoicing Module Capabilities
 
+[moduleCap] *invoicing*
+[moduleCap] *incoming*
+[moduleCap] *errordetect*
+
 *invoicing*:
 name=Invoicing only
+<create>=10
 
 *incoming*:
 name=Invoicing and incoming payments
+<create>=25
 
 *errordetect*:
 name=Invoicing, incoming and error detection
+<create>=50
 
 <create>:
 name=Cost of creating
@@ -42,6 +52,9 @@ unit=manual corrections / month
 <reaction>:
 name=Mean reaction time to detect errors
 unit=days
+
+(reaction):
+name=test a false assignment
 
 [module] <creationtime>
 [module] [moduleCap]

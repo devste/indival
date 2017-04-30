@@ -1,4 +1,6 @@
-package org.indival.model.stat;
+package org.indival.model.stat.edge;
+
+import org.indival.model.stat.node.IvNode;
 
 /*
  * The basic implementation for IvEdgeType

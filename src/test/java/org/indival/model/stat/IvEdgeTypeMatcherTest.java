@@ -2,6 +2,9 @@ package org.indival.model.stat;
 
 import static org.junit.Assert.*;
 
+import org.indival.model.stat.edge.IvEdgeType;
+import org.indival.model.stat.edge.IvEdgeTypeMatcher;
+import org.indival.model.stat.node.IvNodeType;
 import org.junit.Test;
 
 public class IvEdgeTypeMatcherTest {
