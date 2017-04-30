@@ -7,9 +7,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,9 +18,6 @@ import java.util.ResourceBundle;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -37,7 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import com.mxgraph.swing.mxGraphComponent;
 
-public class IvMainWindow extends JFrame implements ActionListener {
+public class IvMainWindow extends JFrame {
 
 	private static final long serialVersionUID = -8706457057984469938L;
 	private ResourceBundle messages;
@@ -67,7 +61,8 @@ public class IvMainWindow extends JFrame implements ActionListener {
 
 		setBackground(Color.WHITE);
 
-		setJMenuBar(menuBar());
+		MainMenuActions mma = new MainMenuActions(this);
+		setJMenuBar(new MainMenuBar(mma, messages));
 		showStartMessage();
 
 		// Display the window.
@@ -77,115 +72,8 @@ public class IvMainWindow extends JFrame implements ActionListener {
 
 	}
 
-	private JMenuBar menuBar() {
-		JMenuBar theMenuBar = new JMenuBar();
-		JMenu menu;
-		JMenuItem menuItem;
-
-		// Layout of the menu bar
-		theMenuBar.setOpaque(true);
-		theMenuBar.setPreferredSize(new Dimension(600, 20));
-
-		// Build the first level of the menu.
-		menu = new JMenu(messages.getString("menu.project"));
-		menu.setMnemonic(KeyEvent.VK_P);
-		menu.getAccessibleContext().setAccessibleDescription(messages.getString("menu.project.desc"));
-
-		menuItem = new JMenuItem(messages.getString("menu.project.open"));
-		menuItem.setMnemonic(KeyEvent.VK_O);
-		menuItem.setActionCommand("projectOpen");
-		menuItem.addActionListener(this);
-		menu.add(menuItem);
-
-		menuItem = new JMenuItem(messages.getString("menu.project.example-car"));
-		menuItem.setMnemonic(KeyEvent.VK_L);
-		menuItem.setActionCommand("projectExampleCar");
-		menuItem.addActionListener(this);
-		menu.add(menuItem);
-
-		menuItem = new JMenuItem(messages.getString("menu.project.example-software"));
-		menuItem.setMnemonic(KeyEvent.VK_L);
-		menuItem.setActionCommand("projectExampleSoftware");
-		menuItem.addActionListener(this);
-		menu.add(menuItem);
-
-		menuItem = new JMenuItem(messages.getString("menu.project.exit"));
-		menuItem.setMnemonic(KeyEvent.VK_E);
-		menuItem.setActionCommand("exit");
-		menuItem.addActionListener(this);
-		menu.add(menuItem);
-
-		menu.addActionListener(this);
-
-		theMenuBar.add(menu);
-
-		menu = new JMenu(messages.getString("menu.view"));
-		menu.setMnemonic(KeyEvent.VK_V);
-		menu.getAccessibleContext().setAccessibleDescription(messages.getString("menu.view.desc"));
-
-		menuItem = new JMenuItem(messages.getString("menu.view.layout"));
-		menuItem.setMnemonic(KeyEvent.VK_L);
-		menuItem.setActionCommand("applyLayout");
-		menuItem.addActionListener(this);
-		menu.add(menuItem);
-
-		menu.addActionListener(this);
-
-		theMenuBar.add(menu);
-
-		menu = new JMenu(messages.getString("menu.about"));
-		menu.setMnemonic(KeyEvent.VK_A);
-
-		menuItem = new JMenuItem(messages.getString("menu.about.info"));
-		menuItem.setMnemonic(KeyEvent.VK_I);
-		menuItem.setActionCommand("infoBox");
-		menuItem.addActionListener(this);
-		menu.add(menuItem);
-
-		theMenuBar.add(menu);
-
-		return theMenuBar;
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		JScrollPane cp = this.graphPane;
-		switch (e.getActionCommand()) {
-		case "showIDEdit":
-			showIDEdit();
-			break;
-		case "applyLayout":
-			applyLayout();
-			break;
-		case "projectOpen":
-			openProjectFile(cp);
-			break;
-		case "projectExampleCar":
-			openExampleCar();
-			break;
-		case "projectExampleSoftware":
-			openExampleSoftware();
-			break;
-		case "updateID":
-			updateID();
-			break;
-		case "exit":
-			exit();
-			break;
-		default:
-			break;
-		}
-	}
-
-	private void openProjectFile(Container cp) {
-		int returnOpen = fc.showOpenDialog(cp);
+	protected void openProjectFile() {
+		int returnOpen = fc.showOpenDialog(this.graphPane);
 		if (returnOpen == JFileChooser.APPROVE_OPTION) {
 			File ofile = fc.getSelectedFile();
 			if (ofile.exists()) {
@@ -202,14 +90,14 @@ public class IvMainWindow extends JFrame implements ActionListener {
 		}
 	}
 
-	private void openExampleCar() {
+	protected void openExampleCar() {
 		this.project = new IvProject();
 		String filename = "example-car.txt";
 		IvFileParser.getInstance().parseFromResourceFile(filename, this.project.getStaticGraph());
 		showIDEdit();
 	}
 
-	private void openExampleSoftware() {
+	protected void openExampleSoftware() {
 		this.project = new IvProject();
 		String filename = "example-software.txt";
 		log.info("reading example file " + filename);
@@ -217,7 +105,7 @@ public class IvMainWindow extends JFrame implements ActionListener {
 		showIDEdit();
 	}
 
-	private void exit() {
+	protected void exit() {
 		System.exit(0);
 	}
 
@@ -235,7 +123,7 @@ public class IvMainWindow extends JFrame implements ActionListener {
 		this.getContentPane().remove(startLabel);
 	}
 
-	private void applyLayout() {
+	protected void applyLayout() {
 		this.mge.layoutCompactTree();
 		Container cp = getContentPane();
 		cp.revalidate();
@@ -243,7 +131,7 @@ public class IvMainWindow extends JFrame implements ActionListener {
 		pack();
 	}
 
-	private void showIDEdit() {
+	protected void showIDEdit() {
 		removeStartMessage();
 		this.project.updateMxGraph();
 		this.mge = new MxGraphEdit(this.project.getStaticMxgModel(), this.messages);
