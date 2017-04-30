@@ -15,10 +15,11 @@ attrValue: VALUE;
 // decisionOption: '*' decisionId '*' ':' (NEWLINE attribute)*;
 // decisionId: ID;
 
-edgeDef: edgeUncertUncert | edgeUncertDec | edgeDecDec | edgeDecValue;
+edgeDef: edgeUncertUncert | edgeUncertDec | edgeDecDec | edgeDecValue | edgeDecAlt;
 edgeUncertUncert: nodeUncertainty ' ' nodeUncertainty;
 edgeUncertDec: nodeUncertainty ' ' nodeDecision;
 edgeDecDec: nodeDecision ' ' nodeDecision;
+edgeDecAlt: nodeDecision ' ' nodeAlternative;
 edgeDecValue: nodeDecision ' ' nodeValue;
 
 fragment ALLOWED_VALS : [ /!$%&'´?\-.];
