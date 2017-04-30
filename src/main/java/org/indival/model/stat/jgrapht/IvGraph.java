@@ -7,6 +7,7 @@ import java.util.Set;
 import org.indival.model.stat.edge.IvEdge;
 import org.indival.model.stat.edge.IvEdgeAltDecision;
 import org.indival.model.stat.edge.IvEdgeFactory;
+import org.indival.model.stat.edge.IvEdgeType;
 import org.indival.model.stat.node.IvNode;
 import org.indival.model.stat.node.IvNodeAlternative;
 import org.indival.model.stat.node.IvNodeDecision;
@@ -14,6 +15,9 @@ import org.indival.model.stat.node.IvNodeValue;
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.mxgraph.model.mxGraphModel;
+import com.mxgraph.view.mxGraph;
 
 /*
  * Provides an Indival graph.
@@ -71,7 +75,8 @@ public class IvGraph extends DirectedAcyclicGraph<IvNode, IvEdge> {
 		for (IvNode node : decisionAncestors) {
 		    if (node.getClass() == IvNodeValue.class && valNodeIds.contains(node.getIdentifier())) {
 			IvEdge newEdge = IvEdgeFactory.getEdge(destination, node);
-			// store the new edge to add after looping (ConcurrentModificationException).
+			// store the new edge to add after looping
+			// (ConcurrentModificationException).
 			edgeadder.add(new edgeAdder(destination, node, newEdge));
 		    }
 		}
@@ -81,6 +86,35 @@ public class IvGraph extends DirectedAcyclicGraph<IvNode, IvEdge> {
 	for (edgeAdder ea : edgeadder) {
 	    boolean ret = this.addEdge(ea.source, ea.destination, ea.edge);
 	    log.debug("postProcessFunctionalAlternative: adding edge: {}, successful: {}", ea.toString(), ret);
+	}
+    }
+
+    public void toMxGraph(mxGraph mxg, mxGraphModel mxgModel) {
+	Object parent = mxg.getDefaultParent();
+	Set<IvEdge> edgeSet = this.edgeSet();
+	int displayOffset = 0;
+	for (IvEdge e : edgeSet) {
+	    IvEdgeType etype = e.getEdgeType();
+	    // if it's a type that is in an influence diagramme
+	    if (etype == IvEdgeType.FUNCTIONAL_DECISION || etype == IvEdgeType.INFORMATIONAL_CHANCE
+		    || etype == IvEdgeType.INFORMATIONAL_DECISION) {
+		IvNode source = this.getEdgeSource(e);
+		IvNode dest = this.getEdgeTarget(e);
+		Object sourceCell = mxgModel.getCell(source.getIdentifier());
+		Object destCell = mxgModel.getCell(dest.getIdentifier());
+		if (sourceCell == null) {
+		    mxg.insertVertex(parent, source.getIdentifier(), source, 0 + 100 * displayOffset,
+			    0 + 20 * displayOffset, 100, 50, source.getType().name());
+		}
+		if (destCell == null) {
+		    mxg.insertVertex(parent, dest.getIdentifier(), dest, 0 + 100 * (displayOffset + 1),
+			    0 + 20 * (displayOffset + 1), 100, 50, dest.getType().name());
+		}
+		sourceCell = mxgModel.getCell(source.getIdentifier());
+		destCell = mxgModel.getCell(dest.getIdentifier());
+		mxg.insertEdge(parent, e.toString(), e, sourceCell, destCell);
+		displayOffset += 2;
+	    }
 	}
     }
 }

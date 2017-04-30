@@ -40,7 +40,7 @@ public class IvEdgeBase implements IvEdge {
      */
     @Override
     public String toString(){
-	return this.source.toString() + " -> " + this.destination.toString();
+	return "";
     }
 
 

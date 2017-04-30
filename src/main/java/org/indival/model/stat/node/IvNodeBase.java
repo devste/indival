@@ -25,7 +25,11 @@ public class IvNodeBase implements IvNode {
 
     @Override
     public String toString() {
-	return this.identifier;
+	if(this.attributes.containsKey("name")){
+	    return getAttribute("name");
+	} else {
+	    return this.identifier;
+	}
     }
 
     @Override

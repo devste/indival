@@ -48,7 +48,7 @@ public class IvFileParser {
 	processFile(in, graph);
     }
 
-    private void processFile(InputStream is, IvGraph graph) {
+    public void processFile(InputStream is, IvGraph graph) {
 	try {
 	    InputStreamReader isr = new InputStreamReader(is, "UTF-8");
 	    indigraphParser parser = prepareParser(isr);

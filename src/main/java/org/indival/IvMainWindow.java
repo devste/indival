@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -30,31 +29,28 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import org.indival.fileParser.indigraphParser;
-// import org.indival.filereader.IdgFileVisitor;
-// import org.indival.filereader.IdgParser; */
-import org.indival.gui.DecisionOptionControl;
+import org.indival.filereader.IvFileParser;
 import org.indival.gui.MxGraphEdit;
-import org.indival.model.Project;
+import org.indival.model.IvProject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mxgraph.swing.mxGraphComponent;
 
-public class MainWindow extends JFrame implements ActionListener {
+public class IvMainWindow extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = -8706457057984469938L;
 	private ResourceBundle messages;
 	private final JFileChooser fc = new JFileChooser();
-	private Project project;
 	private String projectFile;
+	private IvProject project = new IvProject();
 	private JScrollPane graphPane;
 	private JLabel startLabel;
 	private MxGraphEdit mge;
 	// private DecisionOptionControl doc;
 	private transient Logger log = LoggerFactory.getLogger(this.getClass().toString());
 
-	public MainWindow() {
+	public IvMainWindow() {
 		super("INfluence DIagramme with VALues");
 
 		log.info("Default character encoding: " + Charset.defaultCharset().name());
@@ -76,7 +72,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		// Display the window.
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		initEmptyProject();
 		pack();
 		setVisible(true);
 
@@ -195,10 +190,10 @@ public class MainWindow extends JFrame implements ActionListener {
 			File ofile = fc.getSelectedFile();
 			if (ofile.exists()) {
 				try {
-					this.project = new Project();
+					this.project = new IvProject();
 					this.projectFile = ofile.getCanonicalPath();
 					InputStream fis = new FileInputStream(this.projectFile);
-					processFile(fis);
+					IvFileParser.getInstance().processFile(fis, this.project.getStaticGraph());
 					showIDEdit();
 				} catch (IOException e) {
 					log.debug(e.getMessage());
@@ -208,20 +203,17 @@ public class MainWindow extends JFrame implements ActionListener {
 	}
 
 	private void openExampleCar() {
-		this.project = new Project();
+		this.project = new IvProject();
 		String filename = "example-car.txt";
-		log.info("reading example file " + filename);
-		InputStream in = getClass().getResourceAsStream("/" + filename);
-		processFile(in);
+		IvFileParser.getInstance().parseFromResourceFile(filename, this.project.getStaticGraph());
 		showIDEdit();
 	}
 
 	private void openExampleSoftware() {
-		this.project = new Project();
+		this.project = new IvProject();
 		String filename = "example-software.txt";
 		log.info("reading example file " + filename);
-		InputStream in = getClass().getResourceAsStream("/" + filename);
-		processFile(in);
+		IvFileParser.getInstance().parseFromResourceFile(filename, this.project.getStaticGraph());
 		showIDEdit();
 	}
 
@@ -243,19 +235,6 @@ public class MainWindow extends JFrame implements ActionListener {
 		this.getContentPane().remove(startLabel);
 	}
 
-	private void processFile(InputStream fis) {
-		indigraphParser idg;
-		try {
-			InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-			// idg = IdgParser.parse(isr);
-			// indigraphParser.IndigraphContext idgctx = idg.indigraph();
-			// IdgFileVisitor visitor = new IdgFileVisitor(project);
-			// visitor.visit(idgctx);
-		} catch (IOException e) {
-			log.debug(e.getMessage());
-		}
-	}
-
 	private void applyLayout() {
 		this.mge.layoutCompactTree();
 		Container cp = getContentPane();
@@ -266,7 +245,8 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	private void showIDEdit() {
 		removeStartMessage();
-		this.mge = new MxGraphEdit(this.project.getModel(), this.messages);
+		this.project.updateMxGraph();
+		this.mge = new MxGraphEdit(this.project.getStaticMxgModel(), this.messages);
 		mxGraphComponent comp = this.mge.getComponent();
 		comp.getViewport().setOpaque(true);
 		comp.getViewport().setBackground(Color.WHITE);
@@ -278,8 +258,8 @@ public class MainWindow extends JFrame implements ActionListener {
 		pack();
 
 		// Decision option control
-		DecisionOptionControl doc = new DecisionOptionControl(project.getSelectionNodeList(), this);
-		cp.add(doc, BorderLayout.LINE_START);
+		// DecisionOptionControl doc = new DecisionOptionControl(project.getSelectionNodeList(), this);
+		// cp.add(doc, BorderLayout.LINE_START);
 		cp.revalidate();
 		cp.repaint();
 		pack();
@@ -298,10 +278,6 @@ public class MainWindow extends JFrame implements ActionListener {
 		cp.revalidate();
 		cp.repaint();
 		pack();
-	}
-
-	private void initEmptyProject() {
-		project = new Project();
 	}
 
 }
