@@ -1,18 +1,19 @@
 grammar indigraph;
 indigraph: ((nodeDef | edgeDef) NEWLINE* )*;
 
-nodeDef: nodeDecl ':' (NEWLINE attribute)* (NEWLINE+ decisionOption)*;
-nodeDecl: nodeUncertainty | nodeDecision | nodeValue;
+nodeDef: nodeDecl ':' (NEWLINE attribute)*;
+nodeDecl: nodeUncertainty | nodeDecision | nodeValue | nodeAlternative;
 nodeUncertainty: '(' nodeId ')';
 nodeDecision: '[' nodeId ']';
 nodeValue: '<' nodeId '>';
+nodeAlternative: '*' nodeId '*';
 nodeId: ID;
 attribute: attrName'='attrValue;
 attrName: ID | nodeValue;
 attrValue: VALUE;
 
-decisionOption: '*' decisionId '*' ':' (NEWLINE attribute)*;
-decisionId: ID;
+// decisionOption: '*' decisionId '*' ':' (NEWLINE attribute)*;
+// decisionId: ID;
 
 edgeDef: edgeUncertUncert | edgeUncertDec | edgeDecDec | edgeDecValue;
 edgeUncertUncert: nodeUncertainty ' ' nodeUncertainty;
