@@ -28,7 +28,7 @@ public class IvFileParserTest {
 	ivfileparser.parseFromResourceFile(filename, graph);
 	System.out.println("Parser output: " + graph.toString());
 	assertEquals(13, graph.vertexSet().size());
-	assertEquals(13, graph.edgeSet().size());
+	assertEquals(16, graph.edgeSet().size());
     }
 
 }

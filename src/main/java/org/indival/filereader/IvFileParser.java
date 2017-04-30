@@ -55,6 +55,7 @@ public class IvFileParser {
 	    indigraphParser.IndigraphContext context = parser.indigraph();
 	    IvFileVisitor visitor = new IvFileVisitor(graph);
 	    visitor.visit(context);
+	    graph.postProcessFunctionalAlternative();
 	} catch (IOException e) {
 	    log.debug(e.getMessage());
 	}
