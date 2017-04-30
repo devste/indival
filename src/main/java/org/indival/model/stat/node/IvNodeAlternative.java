@@ -22,8 +22,8 @@ public class IvNodeAlternative extends IvNodeBase {
 	this.valueMap = new HashMap<>();
 	for (String s : this.attributes.keySet()) {
 	    if (s.startsWith("<") && s.endsWith(">")) {
-		String key = s.substring(1, s.length() - 2);
-		String rawValue = this.attributes.get(key);
+		String key = s.substring(1, s.length() - 1);
+		String rawValue = this.attributes.get(s);
 		Float value = Float.valueOf(rawValue);
 		this.valueMap.put(key, value);
 	    }
