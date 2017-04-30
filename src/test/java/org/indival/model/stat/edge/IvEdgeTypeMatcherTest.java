@@ -1,4 +1,4 @@
-package org.indival.model.stat;
+package org.indival.model.stat.edge;
 
 import static org.junit.Assert.*;
 
@@ -12,14 +12,14 @@ public class IvEdgeTypeMatcherTest {
     @Test
     public final void test() {
 	// Test some valid combinations first
-	assertEquals(IvEdgeType.INFORMATIONAL.CHANCE,
+	assertEquals(IvEdgeType.INFORMATIONAL_CHANCE,
 		IvEdgeTypeMatcher.matcher(IvNodeType.CHANCE, IvNodeType.DECISION));
-	assertEquals(IvEdgeType.INFORMATIONAL.DECISION,
+	assertEquals(IvEdgeType.INFORMATIONAL_DECISION,
 		IvEdgeTypeMatcher.matcher(IvNodeType.DECISION, IvNodeType.DECISION));
-	assertEquals(IvEdgeType.FUNCTIONAL.ALTERNATIVE,
+	assertEquals(IvEdgeType.FUNCTIONAL_ALTERNATIVE,
 		IvEdgeTypeMatcher.matcher(IvNodeType.ALTERNATIVE, IvNodeType.VALUE));
-	assertEquals(IvEdgeType.FUNCTIONAL.DECISION, IvEdgeTypeMatcher.matcher(IvNodeType.DECISION, IvNodeType.VALUE));
-	assertEquals(IvEdgeType.ALTERNATIVE.DECISION,
+	assertEquals(IvEdgeType.FUNCTIONAL_DECISION, IvEdgeTypeMatcher.matcher(IvNodeType.DECISION, IvNodeType.VALUE));
+	assertEquals(IvEdgeType.ALTERNATIVE_DECISION,
 		IvEdgeTypeMatcher.matcher(IvNodeType.DECISION, IvNodeType.ALTERNATIVE));
 	// Test some invalid combinations later (not all of them, though).
 	assertNull(IvEdgeTypeMatcher.matcher(IvNodeType.CHANCE, IvNodeType.CHANCE));

@@ -8,8 +8,10 @@ import org.indival.model.stat.node.IvNode;
 public class IvEdgeBase implements IvEdge {
     
     private IvNode source, destination;
+    private IvEdgeType type;
     
-    public IvEdgeBase(IvNode source, IvNode destination){
+    protected IvEdgeBase(IvNode source, IvNode destination, IvEdgeType type){
+	this.type = type;
 	this.source = source;
 	this.destination = destination;
     }
@@ -27,7 +29,7 @@ public class IvEdgeBase implements IvEdge {
      */
     @Override
     public IvEdgeType getEdgeType() {
-	return IvEdgeTypeMatcher.matcher(source.getType(), destination.getType());
+	return this.type;
     }
     
     /*

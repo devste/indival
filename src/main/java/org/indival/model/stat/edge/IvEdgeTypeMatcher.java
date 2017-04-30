@@ -46,10 +46,10 @@ public class IvEdgeTypeMatcher {
 	IvEdgeType type = null;
 	switch (source) {
 	case CHANCE:
-	    type = IvEdgeType.INFORMATIONAL.CHANCE;
+	    type = IvEdgeType.INFORMATIONAL_CHANCE;
 	    break;
 	case DECISION:
-	    type = IvEdgeType.INFORMATIONAL.DECISION;
+	    type = IvEdgeType.INFORMATIONAL_DECISION;
 	    break;
 	default:
 	    break;
@@ -64,10 +64,10 @@ public class IvEdgeTypeMatcher {
 	IvEdgeType type = null;
 	switch (source) {
 	case DECISION:
-	    type = IvEdgeType.FUNCTIONAL.DECISION;
+	    type = IvEdgeType.FUNCTIONAL_DECISION;
 	    break;
 	case ALTERNATIVE:
-	    type = IvEdgeType.FUNCTIONAL.ALTERNATIVE;
+	    type = IvEdgeType.FUNCTIONAL_ALTERNATIVE;
 	    break;
 	default:
 	    break;
@@ -82,7 +82,7 @@ public class IvEdgeTypeMatcher {
 	IvEdgeType type = null;
 	switch (source) {
 	case DECISION:
-	    type = IvEdgeType.ALTERNATIVE.DECISION;
+	    type = IvEdgeType.ALTERNATIVE_DECISION;
 	    break;
 	default:
 	    break;

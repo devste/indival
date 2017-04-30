@@ -10,7 +10,7 @@ import org.indival.fileParser.indigraphParser.EdgeDefContext;
 import org.indival.fileParser.indigraphParser.NodeDeclContext;
 import org.indival.fileParser.indigraphParser.NodeDefContext;
 import org.indival.model.stat.edge.IvEdge;
-import org.indival.model.stat.edge.IvEdgeBase;
+import org.indival.model.stat.edge.IvEdgeFactory;
 import org.indival.model.stat.jgrapht.IvGraph;
 import org.indival.model.stat.node.IvNode;
 import org.indival.model.stat.node.IvNodeFactory;
@@ -78,7 +78,7 @@ public class IvFileVisitor extends indigraphBaseVisitor<String> {
 	    // TODO exception
 	    log.warn("node for nodeId %s doesn't exist", destNodeId);
 	}
-	IvEdge edge = new IvEdgeBase(source, dest);
+	IvEdge edge = IvEdgeFactory.getEdge(source, dest);
 	if (edge.getEdgeType() == null) {
 	    log.warn("Edge from nodeType {} to nodeType {} is not valid in indival", source.getType(), dest.getType());
 	} else {
