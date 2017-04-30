@@ -8,15 +8,8 @@ public class IvNodeBase implements IvNode {
     private String identifier;
     protected HashMap<String, String> attributes = new HashMap<>();
 
-    /*
-     * Create a new IndiNode with only a type. This is the minimum requirement.
-     */
-    public IvNodeBase(IvNodeType type) {
-	this.type = type;
-    }
-
     public IvNodeBase(IvNodeType type, String identifier) {
-	this(type);
+	this.type = type;
 	this.identifier = identifier;
     }
 

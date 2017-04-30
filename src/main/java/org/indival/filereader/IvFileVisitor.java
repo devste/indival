@@ -13,7 +13,7 @@ import org.indival.model.stat.edge.IvEdge;
 import org.indival.model.stat.edge.IvEdgeBase;
 import org.indival.model.stat.jgrapht.IvGraph;
 import org.indival.model.stat.node.IvNode;
-import org.indival.model.stat.node.IvNodeBase;
+import org.indival.model.stat.node.IvNodeFactory;
 import org.indival.model.stat.node.IvNodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +54,7 @@ public class IvFileVisitor extends indigraphBaseVisitor<String> {
 	}
 	if (ivnode == null) {
 	    log.trace("Creating new node with nodeId {} and type {}", nodeId, type);
-	    ivnode = new IvNodeBase(type, nodeId);
+	    ivnode = IvNodeFactory.getNode(type, nodeId);
 	    this.nodeMap.put(nodeId, ivnode);
 	    boolean ret = this.graph.addVertex(ivnode);
 	    if (ret) {

@@ -19,10 +19,10 @@ public class IvEdgeBaseTest {
     @Before
     public void setUp() throws Exception {
 	// Generate each Node Type once
-	IvNode decision = new IvNodeBase(IvNodeType.DECISION);
-	IvNode value = new IvNodeBase(IvNodeType.VALUE);
-	IvNode chance = new IvNodeBase(IvNodeType.CHANCE);
-	IvNode alternative = new IvNodeBase(IvNodeType.ALTERNATIVE);
+	IvNode decision = new IvNodeBase(IvNodeType.DECISION, "node1");
+	IvNode value = new IvNodeBase(IvNodeType.VALUE, "node2");
+	IvNode chance = new IvNodeBase(IvNodeType.CHANCE, "node3");
+	IvNode alternative = new IvNodeBase(IvNodeType.ALTERNATIVE, "node4");
 	
 	infoChance = new IvEdgeBase(chance, decision);
 	infoDecision = new IvEdgeBase(decision, decision);
