@@ -1,5 +1,6 @@
 package org.indival.model.stat.node;
 
+import org.indival.model.dyn.IvNodeAlternativeDyn;
 import org.indival.model.dyn.IvNodeDecisionDyn;
 import org.indival.model.dyn.IvNodeValueDyn;
 
@@ -16,7 +17,7 @@ public class IvNodeFactory {
     public static IvNode getNode(IvNodeType type, String identifier) {
 	switch (type) {
 	case ALTERNATIVE:
-	    return new IvNodeAlternative(identifier);
+	    return new IvNodeAlternativeDyn(identifier);
 	case CHANCE:
 	    return new IvNodeChance(identifier);
 	case DECISION:

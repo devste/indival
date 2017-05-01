@@ -9,16 +9,16 @@ public class IvNodeAlternative extends IvNodeBase {
      * represent valid connections to those nodes. This should be initialised
      * the first time someone tries to access a value.
      */
-    Map<String, Float> valueMap = null;
+    protected Map<String, Float> valueMap = null;
 
     public IvNodeAlternative(String identifier) {
 	super(IvNodeType.ALTERNATIVE, identifier);
     }
-    
+
     /*
      * This method initializes the valueMap from the attributes.
      */
-    private void initializeValueMap(){
+    private void initializeValueMap() {
 	this.valueMap = new HashMap<>();
 	for (String s : this.attributes.keySet()) {
 	    if (s.startsWith("<") && s.endsWith(">")) {
@@ -35,10 +35,23 @@ public class IvNodeAlternative extends IvNodeBase {
      * nodeIds are not necessarily valid.
      */
     public Map<String, Float> getConfiguredValueNodeIds() {
-	if(this.valueMap == null){
+	if (this.valueMap == null) {
 	    initializeValueMap();
 	}
 	return this.valueMap;
+    }
+
+    /*
+     * Returns the configured value or 0
+     */
+    public Float getConfiguredValue(String nodeId) {
+	Float f = Float.valueOf("0");
+	if (this.valueMap != null) {
+	    if (this.valueMap.containsKey(nodeId)) {
+		f = Float.valueOf(this.valueMap.get(nodeId));
+	    }
+	}
+	return f;
     }
 
 }
