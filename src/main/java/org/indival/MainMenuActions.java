@@ -16,9 +16,15 @@ public class MainMenuActions implements ActionListener {
 	case "showIDEdit":
 		parent.showIDEdit();
 		break;
-	case "applyLayout":
-		parent.applyLayout();
+	case "layoutCompactTree":
+		parent.layoutCompactTree();
 		break;
+	case "layoutOrganic":
+		parent.layoutOrganic();
+		break;
+	case "layoutFastOrganic":
+	    	parent.layoutFastOrganic();
+	    	break;
 	case "projectOpen":
 		parent.openProjectFile();
 		break;

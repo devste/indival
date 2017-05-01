@@ -110,6 +110,7 @@ public class IvMainWindow extends JFrame {
     protected void openExampleCar() {
 	this.project = new IvProject();
 	String filename = "example-car.txt";
+	log.info("reading example file " + filename);
 	IvFileParser.getInstance().parseFromResourceFile(filename, this.project.getStaticGraph());
 	showIDEdit();
     }
@@ -140,13 +141,32 @@ public class IvMainWindow extends JFrame {
 	this.getContentPane().remove(startLabel);
     }
 
-    protected void applyLayout() {
+    protected void layoutCompactTree() {
 	this.mge.layoutCompactTree();
-	Container cp = getContentPane();
-	cp.revalidate();
-	cp.repaint();
-	pack();
+	showIDEdit();
+//	Container cp = getContentPane();
+//	cp.revalidate();
+//	cp.repaint();
+//	pack();
     }
+    
+    protected void layoutOrganic(){
+	this.mge.layouOrganic();
+ 	showIDEdit();
+//	Container cp = getContentPane();
+//	cp.revalidate();
+//	cp.repaint();
+//	pack();
+    }
+    
+    protected void layoutFastOrganic(){
+ 	this.mge.layoutFastOrganic();
+ 	showIDEdit();
+// 	Container cp = getContentPane();
+// 	cp.revalidate();
+// 	cp.repaint();
+// 	pack();
+     }
 
     protected void showIDEdit() {
 	removeStartMessage();

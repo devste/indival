@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import org.indival.gui.mxgraph.Stylesheet;
 
 import com.mxgraph.layout.mxCompactTreeLayout;
+import com.mxgraph.layout.mxFastOrganicLayout;
+import com.mxgraph.layout.mxOrganicLayout;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
@@ -49,9 +51,25 @@ public class MxGraphEdit {
     public void layoutCompactTree() {
 	// graph.setCellsLocked(false);
 	mxCompactTreeLayout mxLayout = new mxCompactTreeLayout(this.graph);
+	mxLayout.setResizeParent(true);
+	mxLayout.setResetEdges(true);
 	mxLayout.execute(this.graph.getDefaultParent());
 	this.component.refresh();
 	// graph.setCellsLocked(true);
+    }
+    
+    public void layouOrganic(){
+	mxOrganicLayout mxLayout = new mxOrganicLayout(this.graph);
+	mxLayout.setResetEdges(true);
+	mxLayout.execute(this.graph.getDefaultParent());
+	this.component.refresh();
+    }
+    
+    public void layoutFastOrganic(){
+	mxFastOrganicLayout mxLayout = new mxFastOrganicLayout(this.graph);
+	mxLayout.setResetEdges(true);
+	mxLayout.execute(this.graph.getDefaultParent());
+	this.component.refresh();
     }
 
 }

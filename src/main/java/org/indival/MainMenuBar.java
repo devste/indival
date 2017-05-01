@@ -64,13 +64,25 @@ public class MainMenuBar extends JMenuBar {
 
 	theMenuBar.add(menu);
 
-	menu = new JMenu(messages.getString("menu.view"));
+	menu = new JMenu(messages.getString("menu.layout"));
 	menu.setMnemonic(KeyEvent.VK_V);
-	menu.getAccessibleContext().setAccessibleDescription(messages.getString("menu.view.desc"));
+	menu.getAccessibleContext().setAccessibleDescription(messages.getString("menu.layout.desc"));
 
-	menuItem = new JMenuItem(messages.getString("menu.view.layout"));
-	menuItem.setMnemonic(KeyEvent.VK_L);
-	menuItem.setActionCommand("applyLayout");
+	menuItem = new JMenuItem(messages.getString("menu.layout.compacttree"));
+	menuItem.setMnemonic(KeyEvent.VK_C);
+	menuItem.setActionCommand("layoutCompactTree");
+	menuItem.addActionListener(parent);
+	menu.add(menuItem);
+	
+	menuItem = new JMenuItem(messages.getString("menu.layout.organic"));
+	menuItem.setMnemonic(KeyEvent.VK_O);
+	menuItem.setActionCommand("layoutOrganic");
+	menuItem.addActionListener(parent);
+	menu.add(menuItem);
+	
+	menuItem = new JMenuItem(messages.getString("menu.layout.fastorganic"));
+	menuItem.setMnemonic(KeyEvent.VK_F);
+	menuItem.setActionCommand("layoutFastOrganic");
 	menuItem.addActionListener(parent);
 	menu.add(menuItem);
 
