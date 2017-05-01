@@ -10,13 +10,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class MainMenuBar extends JMenuBar {
-    
+
     /**
      * 
      */
     private static final long serialVersionUID = -2604060721601492783L;
 
-    public MainMenuBar(ActionListener parent, ResourceBundle messages){
+    public MainMenuBar(ActionListener parent, ResourceBundle messages) {
 	JMenuBar theMenuBar = this;
 	JMenu menu;
 	JMenuItem menuItem;
@@ -35,7 +35,7 @@ public class MainMenuBar extends JMenuBar {
 	menuItem.setActionCommand("projectOpen");
 	menuItem.addActionListener(parent);
 	menu.add(menuItem);
-	
+
 	menuItem = new JMenuItem(messages.getString("menu.project.reload"));
 	menuItem.setMnemonic(KeyEvent.VK_R);
 	menuItem.setActionCommand("projectReload");
@@ -73,16 +73,28 @@ public class MainMenuBar extends JMenuBar {
 	menuItem.setActionCommand("layoutCompactTree");
 	menuItem.addActionListener(parent);
 	menu.add(menuItem);
-	
+
 	menuItem = new JMenuItem(messages.getString("menu.layout.organic"));
 	menuItem.setMnemonic(KeyEvent.VK_O);
 	menuItem.setActionCommand("layoutOrganic");
 	menuItem.addActionListener(parent);
 	menu.add(menuItem);
-	
+
 	menuItem = new JMenuItem(messages.getString("menu.layout.fastorganic"));
 	menuItem.setMnemonic(KeyEvent.VK_F);
 	menuItem.setActionCommand("layoutFastOrganic");
+	menuItem.addActionListener(parent);
+	menu.add(menuItem);
+
+	menuItem = new JMenuItem(messages.getString("menu.layout.circle"));
+	menuItem.setMnemonic(KeyEvent.VK_C);
+	menuItem.setActionCommand("layoutCircle");
+	menuItem.addActionListener(parent);
+	menu.add(menuItem);
+
+	menuItem = new JMenuItem(messages.getString("menu.layout.hierarchical"));
+	menuItem.setMnemonic(KeyEvent.VK_H);
+	menuItem.setActionCommand("layoutHierarchical");
 	menuItem.addActionListener(parent);
 	menu.add(menuItem);
 

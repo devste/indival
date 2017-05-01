@@ -87,6 +87,7 @@ public class IvMainWindow extends JFrame {
 		    this.project = new IvProject();
 		    InputStream fis = new FileInputStream(this.projectFile);
 		    IvFileParser.getInstance().processFile(fis, this.project.getStaticGraph());
+		    this.project.getStaticGraph().initDynamicNodes();
 		    showIDEdit();
 		} catch (IOException e) {
 		    log.debug(e.getMessage());
@@ -104,6 +105,7 @@ public class IvMainWindow extends JFrame {
 	} catch (FileNotFoundException e) {
 	    log.warn(e.getMessage());
 	}
+	this.project.getStaticGraph().initDynamicNodes();
 	showIDEdit();
     }
 
@@ -146,29 +148,39 @@ public class IvMainWindow extends JFrame {
     protected void layoutCompactTree() {
 	this.mge.layoutCompactTree();
 	showIDEdit();
-//	Container cp = getContentPane();
-//	cp.revalidate();
-//	cp.repaint();
-//	pack();
+	// Container cp = getContentPane();
+	// cp.revalidate();
+	// cp.repaint();
+	// pack();
     }
-    
-    protected void layoutOrganic(){
+
+    protected void layoutOrganic() {
 	this.mge.layouOrganic();
- 	showIDEdit();
-//	Container cp = getContentPane();
-//	cp.revalidate();
-//	cp.repaint();
-//	pack();
+	showIDEdit();
+	// Container cp = getContentPane();
+	// cp.revalidate();
+	// cp.repaint();
+	// pack();
     }
-    
-    protected void layoutFastOrganic(){
- 	this.mge.layoutFastOrganic();
- 	showIDEdit();
-// 	Container cp = getContentPane();
-// 	cp.revalidate();
-// 	cp.repaint();
-// 	pack();
-     }
+
+    protected void layoutFastOrganic() {
+	this.mge.layoutFastOrganic();
+	showIDEdit();
+	// Container cp = getContentPane();
+	// cp.revalidate();
+	// cp.repaint();
+	// pack();
+    }
+
+    protected void layoutCircle() {
+	this.mge.layoutCircle();
+	showIDEdit();
+    }
+
+    protected void layoutHierarchical() {
+	this.mge.layoutHierarchical();
+	showIDEdit();
+    }
 
     protected void showIDEdit() {
 	removeStartMessage();
@@ -185,7 +197,8 @@ public class IvMainWindow extends JFrame {
 	pack();
 
 	// Decision option control
-	IvDecisionAlternativesControl doc = new IvDecisionAlternativesControl(this.project.getStaticGraph().getDynamicDecisionNodes(), this);
+	IvDecisionAlternativesControl doc = new IvDecisionAlternativesControl(
+		this.project.getStaticGraph().getDynamicDecisionNodes(), this);
 	cp.add(doc, BorderLayout.LINE_START);
 	cp.revalidate();
 	cp.repaint();

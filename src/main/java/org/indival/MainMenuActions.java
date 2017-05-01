@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class MainMenuActions implements ActionListener {
     private IvMainWindow parent;
-    
-    public MainMenuActions(IvMainWindow parent){
+
+    public MainMenuActions(IvMainWindow parent) {
 	this.parent = parent;
     }
 
@@ -14,37 +14,43 @@ public class MainMenuActions implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 	switch (e.getActionCommand()) {
 	case "showIDEdit":
-		parent.showIDEdit();
-		break;
+	    parent.showIDEdit();
+	    break;
 	case "layoutCompactTree":
-		parent.layoutCompactTree();
-		break;
+	    parent.layoutCompactTree();
+	    break;
 	case "layoutOrganic":
-		parent.layoutOrganic();
-		break;
+	    parent.layoutOrganic();
+	    break;
 	case "layoutFastOrganic":
-	    	parent.layoutFastOrganic();
-	    	break;
+	    parent.layoutFastOrganic();
+	    break;
+	case "layoutCircle":
+	    parent.layoutCircle();
+	    break;
+	case "layoutHierarchical":
+	    parent.layoutHierarchical();
+	    break;
 	case "projectOpen":
-		parent.openProjectFile();
-		break;
+	    parent.openProjectFile();
+	    break;
 	case "projectReload":
-		parent.reloadFromFile();
-		break;
+	    parent.reloadFromFile();
+	    break;
 	case "projectExampleCar":
-		parent.openExampleCar();
-		break;
+	    parent.openExampleCar();
+	    break;
 	case "projectExampleSoftware":
-		parent.openExampleSoftware();
-		break;
+	    parent.openExampleSoftware();
+	    break;
 	case "updateID":
-		parent.updateID();
-		break;
+	    parent.updateID();
+	    break;
 	case "exit":
-		parent.exit();
-		break;
+	    parent.exit();
+	    break;
 	default:
-		break;
+	    break;
 	}
 
     }
