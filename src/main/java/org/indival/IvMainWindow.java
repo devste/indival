@@ -9,6 +9,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -33,139 +34,156 @@ import com.mxgraph.swing.mxGraphComponent;
 
 public class IvMainWindow extends JFrame {
 
-	private static final long serialVersionUID = -8706457057984469938L;
-	private ResourceBundle messages;
-	private final JFileChooser fc = new JFileChooser();
-	private String projectFile;
-	private IvProject project = new IvProject();
-	private JScrollPane graphPane;
-	private JLabel startLabel;
-	private MxGraphEdit mge;
-	// private DecisionOptionControl doc;
-	private transient Logger log = LoggerFactory.getLogger(this.getClass().toString());
+    private static final long serialVersionUID = -8706457057984469938L;
+    private ResourceBundle messages;
+    private final JFileChooser fc = new JFileChooser();
+    private String projectFile;
+    private IvProject project = new IvProject();
+    private JScrollPane graphPane;
+    private JLabel startLabel;
+    private MxGraphEdit mge;
+    // private DecisionOptionControl doc;
+    private transient Logger log = LoggerFactory.getLogger(this.getClass().toString());
 
-	public IvMainWindow() {
-		super("INfluence DIagramme with VALues");
+    public IvMainWindow() {
+	super("INfluence DIagramme with VALues");
 
-		log.info("Default character encoding: " + Charset.defaultCharset().name());
+	log.info("Default character encoding: " + Charset.defaultCharset().name());
 
-		Locale currentLocale = Locale.getDefault();
-		messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
+	Locale currentLocale = Locale.getDefault();
+	messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
 
+	try {
+	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+		| UnsupportedLookAndFeelException e) {
+	    log.debug(e.getMessage());
+	}
+
+	setBackground(Color.WHITE);
+
+	MainMenuActions mma = new MainMenuActions(this);
+	setJMenuBar(new MainMenuBar(mma, messages));
+	showStartMessage();
+
+	// Display the window.
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	pack();
+	setVisible(true);
+
+    }
+
+    protected void openProjectFile() {
+	int returnOpen = fc.showOpenDialog(this.graphPane);
+	if (returnOpen == JFileChooser.APPROVE_OPTION) {
+	    File ofile = fc.getSelectedFile();
+	    if (ofile.exists()) {
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			log.debug(e.getMessage());
+		    this.projectFile = ofile.getCanonicalPath();
+		} catch (IOException e1) {
+		    log.warn(e1.getMessage());
 		}
-
-		setBackground(Color.WHITE);
-
-		MainMenuActions mma = new MainMenuActions(this);
-		setJMenuBar(new MainMenuBar(mma, messages));
-		showStartMessage();
-
-		// Display the window.
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		pack();
-		setVisible(true);
-
-	}
-
-	protected void openProjectFile() {
-		int returnOpen = fc.showOpenDialog(this.graphPane);
-		if (returnOpen == JFileChooser.APPROVE_OPTION) {
-			File ofile = fc.getSelectedFile();
-			if (ofile.exists()) {
-				try {
-					this.project = new IvProject();
-					this.projectFile = ofile.getCanonicalPath();
-					InputStream fis = new FileInputStream(this.projectFile);
-					IvFileParser.getInstance().processFile(fis, this.project.getStaticGraph());
-					showIDEdit();
-				} catch (IOException e) {
-					log.debug(e.getMessage());
-				}
-			}
+		try {
+		    this.project = new IvProject();
+		    InputStream fis = new FileInputStream(this.projectFile);
+		    IvFileParser.getInstance().processFile(fis, this.project.getStaticGraph());
+		    showIDEdit();
+		} catch (IOException e) {
+		    log.debug(e.getMessage());
 		}
+	    }
 	}
+    }
 
-	protected void openExampleCar() {
-		this.project = new IvProject();
-		String filename = "example-car.txt";
-		IvFileParser.getInstance().parseFromResourceFile(filename, this.project.getStaticGraph());
-		showIDEdit();
+    protected void reloadFromFile() {
+	this.project = new IvProject();
+	InputStream fis;
+	try {
+	    fis = new FileInputStream(this.projectFile);
+	    IvFileParser.getInstance().processFile(fis, this.project.getStaticGraph());
+	} catch (FileNotFoundException e) {
+	    log.warn(e.getMessage());
 	}
+	showIDEdit();
+    }
 
-	protected void openExampleSoftware() {
-		this.project = new IvProject();
-		String filename = "example-software.txt";
-		log.info("reading example file " + filename);
-		IvFileParser.getInstance().parseFromResourceFile(filename, this.project.getStaticGraph());
-		showIDEdit();
-	}
+    protected void openExampleCar() {
+	this.project = new IvProject();
+	String filename = "example-car.txt";
+	IvFileParser.getInstance().parseFromResourceFile(filename, this.project.getStaticGraph());
+	showIDEdit();
+    }
 
-	protected void exit() {
-		System.exit(0);
-	}
+    protected void openExampleSoftware() {
+	this.project = new IvProject();
+	String filename = "example-software.txt";
+	log.info("reading example file " + filename);
+	IvFileParser.getInstance().parseFromResourceFile(filename, this.project.getStaticGraph());
+	showIDEdit();
+    }
 
-	private void showStartMessage() {
-		startLabel = new JLabel(messages.getString("startScreenMessage"));
-		startLabel.setBackground(Color.DARK_GRAY);
-		startLabel.setForeground(Color.white);
-		startLabel.setOpaque(true);
-		startLabel.setPreferredSize(new Dimension(400, 200));
-		startLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		this.getContentPane().add(startLabel);
-	}
+    protected void exit() {
+	System.exit(0);
+    }
 
-	private void removeStartMessage() {
-		this.getContentPane().remove(startLabel);
-	}
+    private void showStartMessage() {
+	startLabel = new JLabel(messages.getString("startScreenMessage"));
+	startLabel.setBackground(Color.DARK_GRAY);
+	startLabel.setForeground(Color.white);
+	startLabel.setOpaque(true);
+	startLabel.setPreferredSize(new Dimension(400, 200));
+	startLabel.setHorizontalAlignment(SwingConstants.CENTER);
+	this.getContentPane().add(startLabel);
+    }
 
-	protected void applyLayout() {
-		this.mge.layoutCompactTree();
-		Container cp = getContentPane();
-		cp.revalidate();
-		cp.repaint();
-		pack();
-	}
+    private void removeStartMessage() {
+	this.getContentPane().remove(startLabel);
+    }
 
-	protected void showIDEdit() {
-		removeStartMessage();
-		this.project.updateMxGraph();
-		this.mge = new MxGraphEdit(this.project.getStaticMxgModel(), this.messages);
-		mxGraphComponent comp = this.mge.getComponent();
-		comp.getViewport().setOpaque(true);
-		comp.getViewport().setBackground(Color.WHITE);
-		Container cp = this.getContentPane();
-		cp.removeAll();
-		cp.add(this.mge.getComponent(), BorderLayout.CENTER);
-		cp.revalidate();
-		cp.repaint();
-		pack();
+    protected void applyLayout() {
+	this.mge.layoutCompactTree();
+	Container cp = getContentPane();
+	cp.revalidate();
+	cp.repaint();
+	pack();
+    }
 
-		// Decision option control
-		// DecisionOptionControl doc = new DecisionOptionControl(project.getSelectionNodeList(), this);
-		// cp.add(doc, BorderLayout.LINE_START);
-		cp.revalidate();
-		cp.repaint();
-		pack();
-	}
+    protected void showIDEdit() {
+	removeStartMessage();
+	this.project.updateMxGraph();
+	this.mge = new MxGraphEdit(this.project.getStaticMxgModel(), this.messages);
+	mxGraphComponent comp = this.mge.getComponent();
+	comp.getViewport().setOpaque(true);
+	comp.getViewport().setBackground(Color.WHITE);
+	Container cp = this.getContentPane();
+	cp.removeAll();
+	cp.add(this.mge.getComponent(), BorderLayout.CENTER);
+	cp.revalidate();
+	cp.repaint();
+	pack();
 
-	/*
-	 * Updates the influence diagramme. Should usually be triggered by events.
-	 */
-	public void updateID() {
-		log.info("updating Influence diagramme");
-		Container cp = this.getContentPane();
-		this.mge.getComponent().refresh();
-		cp.revalidate();
-		cp.repaint();
-		this.mge.getComponent().setVisible(true);
-		cp.revalidate();
-		cp.repaint();
-		pack();
-	}
+	// Decision option control
+	// DecisionOptionControl doc = new
+	// DecisionOptionControl(project.getSelectionNodeList(), this);
+	// cp.add(doc, BorderLayout.LINE_START);
+	cp.revalidate();
+	cp.repaint();
+	pack();
+    }
+
+    /*
+     * Updates the influence diagramme. Should usually be triggered by events.
+     */
+    public void updateID() {
+	log.info("updating Influence diagramme");
+	Container cp = this.getContentPane();
+	this.mge.getComponent().refresh();
+	cp.revalidate();
+	cp.repaint();
+	this.mge.getComponent().setVisible(true);
+	cp.revalidate();
+	cp.repaint();
+	pack();
+    }
 
 }

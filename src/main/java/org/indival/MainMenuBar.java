@@ -35,6 +35,12 @@ public class MainMenuBar extends JMenuBar {
 	menuItem.setActionCommand("projectOpen");
 	menuItem.addActionListener(parent);
 	menu.add(menuItem);
+	
+	menuItem = new JMenuItem(messages.getString("menu.project.reload"));
+	menuItem.setMnemonic(KeyEvent.VK_R);
+	menuItem.setActionCommand("projectReload");
+	menuItem.addActionListener(parent);
+	menu.add(menuItem);
 
 	menuItem = new JMenuItem(messages.getString("menu.project.example-car"));
 	menuItem.setMnemonic(KeyEvent.VK_L);

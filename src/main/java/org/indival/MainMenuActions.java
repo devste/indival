@@ -22,6 +22,9 @@ public class MainMenuActions implements ActionListener {
 	case "projectOpen":
 		parent.openProjectFile();
 		break;
+	case "projectReload":
+		parent.reloadFromFile();
+		break;
 	case "projectExampleCar":
 		parent.openExampleCar();
 		break;
