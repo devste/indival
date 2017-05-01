@@ -1,7 +1,7 @@
 package org.indival.model.stat.node;
 
 import org.indival.model.dyn.IvNodeDecisionDyn;
-import org.indival.model.dynamic.IvNodeValueDyn;
+import org.indival.model.dyn.IvNodeValueDyn;
 
 public class IvNodeFactory {
     /*

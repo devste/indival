@@ -1,6 +1,5 @@
-package org.indival.model.dynamic;
+package org.indival.model.dyn;
 
-import org.indival.model.dyn.IvNodeDynamic;
 import org.indival.model.stat.jgrapht.IvGraph;
 import org.indival.model.stat.node.IvNodeValue;
 

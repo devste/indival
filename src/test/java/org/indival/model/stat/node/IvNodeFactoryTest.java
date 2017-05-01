@@ -3,7 +3,7 @@ package org.indival.model.stat.node;
 import static org.junit.Assert.*;
 
 import org.indival.model.dyn.IvNodeDecisionDyn;
-import org.indival.model.dynamic.IvNodeValueDyn;
+import org.indival.model.dyn.IvNodeValueDyn;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
