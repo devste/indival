@@ -1,5 +1,7 @@
 package org.indival.model.stat.node;
 
+import org.indival.model.dyn.IvNodeDecisionDyn;
+
 public class IvNodeFactory {
     /*
      * Hide the implicit public constructor
@@ -17,7 +19,7 @@ public class IvNodeFactory {
 	case CHANCE:
 	    return new IvNodeChance(identifier);
 	case DECISION:
-	    return new IvNodeDecision(identifier);
+	    return new IvNodeDecisionDyn(identifier);
 	case VALUE:
 	    return new IvNodeValue(identifier);
 	default:

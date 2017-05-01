@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.indival.model.dyn.IvNodeDecisionDyn;
+import org.indival.model.dyn.IvNodeDynamic;
 import org.indival.model.stat.edge.IvEdge;
 import org.indival.model.stat.edge.IvEdgeAltDecision;
 import org.indival.model.stat.edge.IvEdgeFactory;
@@ -116,5 +118,29 @@ public class IvGraph extends DirectedAcyclicGraph<IvNode, IvEdge> {
 		displayOffset += 2;
 	    }
 	}
+    }
+
+    /*
+     * Initialize all nodes that inherit from IvNodeDynamic
+     */
+    public void initDynamicNodes() {
+	Set<IvNode> ivnodes = this.vertexSet();
+	for (IvNode i : ivnodes) {
+	    if (i instanceof IvNodeDynamic) {
+		((IvNodeDynamic) i).init(this);
+		log.debug("Initalizing node {} as dynamic node", i.getIdentifier());
+	    }
+	}
+    }
+
+    public List<IvNodeDecisionDyn> getDynamicDecisionNodes() {
+	List<IvNodeDecisionDyn> nodeList = new ArrayList<>();
+	Set<IvNode> ivnodes = this.vertexSet();
+	for (IvNode i : ivnodes) {
+	    if (i instanceof IvNodeDecisionDyn) {
+		nodeList.add((IvNodeDecisionDyn) i);
+	    }
+	}
+	return nodeList;
     }
 }

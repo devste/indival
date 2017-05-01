@@ -25,6 +25,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.indival.filereader.IvFileParser;
+import org.indival.gui.IvDecisionAlternativesControl;
 import org.indival.gui.MxGraphEdit;
 import org.indival.model.IvProject;
 import org.slf4j.Logger;
@@ -42,7 +43,6 @@ public class IvMainWindow extends JFrame {
     private JScrollPane graphPane;
     private JLabel startLabel;
     private MxGraphEdit mge;
-    // private DecisionOptionControl doc;
     private transient Logger log = LoggerFactory.getLogger(this.getClass().toString());
 
     public IvMainWindow() {
@@ -112,6 +112,7 @@ public class IvMainWindow extends JFrame {
 	String filename = "example-car.txt";
 	log.info("reading example file " + filename);
 	IvFileParser.getInstance().parseFromResourceFile(filename, this.project.getStaticGraph());
+	this.project.getStaticGraph().initDynamicNodes();
 	showIDEdit();
     }
 
@@ -120,6 +121,7 @@ public class IvMainWindow extends JFrame {
 	String filename = "example-software.txt";
 	log.info("reading example file " + filename);
 	IvFileParser.getInstance().parseFromResourceFile(filename, this.project.getStaticGraph());
+	this.project.getStaticGraph().initDynamicNodes();
 	showIDEdit();
     }
 
@@ -183,9 +185,8 @@ public class IvMainWindow extends JFrame {
 	pack();
 
 	// Decision option control
-	// DecisionOptionControl doc = new
-	// DecisionOptionControl(project.getSelectionNodeList(), this);
-	// cp.add(doc, BorderLayout.LINE_START);
+	IvDecisionAlternativesControl doc = new IvDecisionAlternativesControl(this.project.getStaticGraph().getDynamicDecisionNodes(), this);
+	cp.add(doc, BorderLayout.LINE_START);
 	cp.revalidate();
 	cp.repaint();
 	pack();
