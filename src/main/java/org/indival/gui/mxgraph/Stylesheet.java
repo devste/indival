@@ -24,6 +24,7 @@ public class Stylesheet {
 	HashMap<String, Object> uncertainty = new HashMap<>();
 	uncertainty.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ELLIPSE);
 	stylesheet.putCellStyle("UNCERTAINTY", uncertainty);
+	stylesheet.putCellStyle("CHANCE", uncertainty);
 
 	// Style for value node
 	HashMap<String, Object> value = new HashMap<>();
