@@ -3,7 +3,6 @@ package org.indival.gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.SortedMap;
@@ -14,9 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import org.indival.IvMainWindow;
-import org.indival.MainWindow;
+import org.indival.model.dyn.IvNodeAlternativeDyn;
 import org.indival.model.dyn.IvNodeDecisionDyn;
-import org.indival.model.stat.node.IvNodeAlternative;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +25,7 @@ public class IvDecisionAlternativesControl extends JPanel implements ActionListe
      */
     private static final long serialVersionUID = -8105169920257321664L;
     private HashMap<String, IvNodeDecisionDyn> indList = new HashMap<>();
+    private HashMap<String, IvNodeAlternativeDyn> alternatives = new HashMap<>();
     private IvMainWindow mainWindow;
     private Logger log = LoggerFactory.getLogger(this.getClass().toString());
 
@@ -54,8 +53,9 @@ public class IvDecisionAlternativesControl extends JPanel implements ActionListe
 	radioButtonPanel.add(label);
 	// Then an option per DecisionOption
 	ButtonGroup group = new ButtonGroup();
-	SortedMap<String, IvNodeAlternative> alternatives = node.getAlternatives();
-	for (IvNodeAlternative a : alternatives.values()) {
+	SortedMap<String, IvNodeAlternativeDyn> alternatives = node.getAlternatives();
+	for (IvNodeAlternativeDyn a : alternatives.values()) {
+	    this.alternatives.put(a.getIdentifier(), a);
 	    JRadioButton theButton = new JRadioButton(a.getName());
 	    theButton.setActionCommand(a.getIdentifier());
 	    group.add(theButton);
@@ -67,6 +67,14 @@ public class IvDecisionAlternativesControl extends JPanel implements ActionListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
+	String command = e.getActionCommand();
+	log.info("Option switching command {}", command);
+	IvNodeAlternativeDyn alternative = this.alternatives.get(command);
+	IvNodeDecisionDyn ancestor = alternative.getAncestor();
+	ancestor.setSelectedAlternative(command);
+	this.mainWindow.updateID();
+	// Find the alternative we want to switch on.
+
 	// String ac = e.getActionCommand();
 	// log.info("Option switching command: " + ac);
 	//

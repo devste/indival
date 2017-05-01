@@ -7,11 +7,15 @@ import java.util.Set;
 import org.indival.model.stat.edge.IvEdge;
 import org.indival.model.stat.jgrapht.IvGraph;
 import org.indival.model.stat.node.IvNodeValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class IvNodeValueDyn extends IvNodeValue implements IvNodeDynamic {
     private Float currentVal;
     private IvGraph graph;
     List<IvNodeAlternativeDyn> predecesorsAlternative = new ArrayList<>();
+
+    private Logger log = LoggerFactory.getLogger(this.getClass().toString());
 
     private void initAlternatives() {
 	Set<IvEdge> edges = graph.edgeSet();
@@ -46,11 +50,14 @@ public class IvNodeValueDyn extends IvNodeValue implements IvNodeDynamic {
      */
     @Override
     public void update() {
+	log.debug("{}: received update signal. updating from {} predecesors", this.getIdentifier(),
+		this.predecesorsAlternative.size());
 	Float f = Float.valueOf("0");
 	for (IvNodeAlternativeDyn node : this.predecesorsAlternative) {
 	    f += node.getSelectedValue(this.getIdentifier());
 	}
 	this.currentVal = f;
+	log.debug("{}: new value is {}", this.getIdentifier(), f);
     }
 
 }
