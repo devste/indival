@@ -147,44 +147,32 @@ public class IvMainWindow extends JFrame {
 
     protected void layoutCompactTree() {
 	this.mge.layoutCompactTree();
-	showIDEdit();
-	// Container cp = getContentPane();
-	// cp.revalidate();
-	// cp.repaint();
-	// pack();
     }
 
     protected void layoutOrganic() {
-	this.mge.layouOrganic();
-	showIDEdit();
-	// Container cp = getContentPane();
-	// cp.revalidate();
-	// cp.repaint();
-	// pack();
+	this.mge.layoutOrganic();
     }
 
     protected void layoutFastOrganic() {
 	this.mge.layoutFastOrganic();
-	showIDEdit();
-	// Container cp = getContentPane();
-	// cp.revalidate();
-	// cp.repaint();
-	// pack();
     }
 
     protected void layoutCircle() {
 	this.mge.layoutCircle();
-	showIDEdit();
     }
 
     protected void layoutHierarchical() {
 	this.mge.layoutHierarchical();
-	showIDEdit();
     }
 
     protected void showIDEdit() {
-	removeStartMessage();
 	this.project.updateMxGraph();
+	updateIDEdit();
+    }
+
+    public void updateIDEdit() {
+	removeStartMessage();
+
 	this.mge = new MxGraphEdit(this.project.getStaticMxgModel(), this.messages);
 	mxGraphComponent comp = this.mge.getComponent();
 	comp.getViewport().setOpaque(true);
@@ -218,6 +206,10 @@ public class IvMainWindow extends JFrame {
 	cp.revalidate();
 	cp.repaint();
 	pack();
+    }
+
+    public void refreshMxGraphEdit() {
+	this.mge.getComponent().refresh();
     }
 
 }

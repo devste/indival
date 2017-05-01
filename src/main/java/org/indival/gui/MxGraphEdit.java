@@ -6,10 +6,13 @@ package org.indival.gui;
 import java.util.ResourceBundle;
 
 import org.indival.gui.mxgraph.Stylesheet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.layout.mxCompactTreeLayout;
 import com.mxgraph.layout.mxFastOrganicLayout;
+import com.mxgraph.layout.mxGraphLayout;
 import com.mxgraph.layout.mxOrganicLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.model.mxGraphModel;
@@ -46,25 +49,25 @@ public class MxGraphEdit {
 	// graph.setPortsEnabled(false); // does nothing
 	this.component = new mxGraphComponent(this.graph);
 	this.messages = messages;
+	mxGraphLayout mxLayout = new mxHierarchicalLayout(this.graph);
+	mxLayout.execute(this.graph.getDefaultParent());
     }
 
     public mxGraphComponent getComponent() {
 	this.component.refresh();
-	layoutCompactTree();
+	// this.layout.execute(this.graph.getDefaultParent());
 	return this.component;
     }
 
     public void layoutCompactTree() {
-	// graph.setCellsLocked(false);
 	mxCompactTreeLayout mxLayout = new mxCompactTreeLayout(this.graph);
 	mxLayout.setResizeParent(true);
 	mxLayout.setResetEdges(true);
 	mxLayout.execute(this.graph.getDefaultParent());
 	this.component.refresh();
-	// graph.setCellsLocked(true);
     }
 
-    public void layouOrganic() {
+    public void layoutOrganic() {
 	mxOrganicLayout mxLayout = new mxOrganicLayout(this.graph);
 	mxLayout.setResetEdges(true);
 	mxLayout.execute(this.graph.getDefaultParent());

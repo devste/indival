@@ -9,57 +9,33 @@ import com.mxgraph.view.mxGraph;
  * This class pulls together some references, so the GUI can refer to these
  */
 public class IvProject {
-    private IvGraph staticGraph = new IvGraph();
-    private IvGraph dynamicGraph = new IvGraph();
-    private mxGraphModel staticMxgModel = new mxGraphModel();
-    private mxGraphModel dynamicMxgModel = new mxGraphModel();
-    private mxGraph staticMxGraph = new mxGraph(staticMxgModel);
-    private mxGraph dynamicMxGraph = new mxGraph(dynamicMxgModel);
+    private IvGraph graph = new IvGraph();
+    private mxGraphModel mxgModel = new mxGraphModel();
+    private mxGraph mxGraph = new mxGraph(mxgModel);
 
     /**
-     * @return the staticGraph
+     * @return the graph
      */
     public IvGraph getStaticGraph() {
-	return staticGraph;
+	return graph;
     }
 
     /**
-     * @return the dynamicGraph
-     */
-    public IvGraph getDynamicGraph() {
-	return dynamicGraph;
-    }
-
-    /**
-     * @return the staticMxGraph
+     * @return the mxGraph
      */
     public mxGraph getStaticMxGraph() {
-	return staticMxGraph;
+	return mxGraph;
     }
 
     /**
-     * @return the dynamicMxGraph
-     */
-    public mxGraph getDynamicMxGraph() {
-	return dynamicMxGraph;
-    }
-
-    /**
-     * @return the staticMxgModel
+     * @return the mxgModel
      */
     public mxGraphModel getStaticMxgModel() {
-	return staticMxgModel;
-    }
-
-    /**
-     * @return the dynamicMxgModel
-     */
-    public mxGraphModel getDynamicMxgModel() {
-	return dynamicMxgModel;
+	return mxgModel;
     }
     
     public void updateMxGraph(){
-	staticGraph.toMxGraph(staticMxGraph, staticMxgModel);
+	graph.toMxGraph(mxGraph, mxgModel);
     }
 
 }

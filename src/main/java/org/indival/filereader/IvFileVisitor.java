@@ -71,12 +71,12 @@ public class IvFileVisitor extends indigraphBaseVisitor<String> {
 	IvNode source = getNode(sourceNodeId);
 	if (source == null) {
 	    // TODO exception
-	    log.warn("node for nodeId %s doesn't exist", sourceNodeId);
+	    log.warn("node for nodeId {} doesn't exist", sourceNodeId);
 	}
 	IvNode dest = getNode(destNodeId);
 	if (dest == null) {
 	    // TODO exception
-	    log.warn("node for nodeId %s doesn't exist", destNodeId);
+	    log.warn("node for nodeId {} doesn't exist", destNodeId);
 	}
 	IvEdge edge = IvEdgeFactory.getEdge(source, dest);
 	if (edge.getEdgeType() == null) {

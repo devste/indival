@@ -73,32 +73,6 @@ public class IvDecisionAlternativesControl extends JPanel implements ActionListe
 	IvNodeDecisionDyn ancestor = alternative.getAncestor();
 	ancestor.setSelectedAlternative(command);
 	this.mainWindow.updateID();
-	// Find the alternative we want to switch on.
-
-	// String ac = e.getActionCommand();
-	// log.info("Option switching command: " + ac);
-	//
-	// // Set the selection
-	// String[] strings = ac.split("_");
-	// String decisionId = strings[0];
-	// String optionId = strings[1];
-	// IndiNodeDecisionOptionSelection ind = this.indList.get(decisionId);
-	// ind.setSelectedOption(optionId);
-	//
-	// //
-	// log.debug("Decision: " + ind.getIndiNodeDecision().getName());
-	// IndiNodeDecisionOption indo = ind.getSelectedOption();
-	// log.debug("New option is: " + indo.getName());
-	// List<IndiNode> destList =
-	// ind.getIndiNodeDecision().getDestinationNodes(IndiNodeType.VALUE);
-	// // Set the new sourcevalue on each value node.
-	// for (IndiNode valueNode : destList) {
-	// IndiNodeValue inv = (IndiNodeValue) valueNode;
-	// String selfId = inv.getNodeId();
-	// Float indoValue = indo.getValue(selfId);
-	// inv.setValue(decisionId, indoValue);
-	// }
-	// this.mainWindow.updateID();
     }
 
 }
