@@ -6,4 +6,11 @@ public class IvNodeValue extends IvNodeBase {
 	super(IvNodeType.VALUE, identifier);
     }
 
+    /*
+     * Returns the unit set by the user
+     */
+    public String getUnit() {
+	return this.getAttribute("unit");
+    }
+
 }

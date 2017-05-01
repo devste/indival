@@ -1,6 +1,7 @@
 package org.indival.model.stat.node;
 
 import org.indival.model.dyn.IvNodeDecisionDyn;
+import org.indival.model.dynamic.IvNodeValueDyn;
 
 public class IvNodeFactory {
     /*
@@ -21,7 +22,7 @@ public class IvNodeFactory {
 	case DECISION:
 	    return new IvNodeDecisionDyn(identifier);
 	case VALUE:
-	    return new IvNodeValue(identifier);
+	    return new IvNodeValueDyn(identifier);
 	default:
 	    return new IvNodeBase(type, identifier);
 	}

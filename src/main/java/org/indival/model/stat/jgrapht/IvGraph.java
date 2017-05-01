@@ -75,7 +75,7 @@ public class IvGraph extends DirectedAcyclicGraph<IvNode, IvEdge> {
 			source.getIdentifier(), destination.getIdentifier(), valNodeIds.size(),
 			decisionAncestors.size());
 		for (IvNode node : decisionAncestors) {
-		    if (node.getClass() == IvNodeValue.class && valNodeIds.contains(node.getIdentifier())) {
+		    if (node instanceof IvNodeValue && valNodeIds.contains(node.getIdentifier())) {
 			IvEdge newEdge = IvEdgeFactory.getEdge(destination, node);
 			// store the new edge to add after looping
 			// (ConcurrentModificationException).
