@@ -31,8 +31,9 @@ public class MxGraphEdit {
     public MxGraphEdit(mxGraphModel model, ResourceBundle messages) {
 	this.model = model;
 	graph = new mxGraph(this.model);
+	graph.setMultigraph(false);
 	Stylesheet.applyStylesheet(graph);
-	graph.setBorder(50);
+	graph.setBorder(30);
 	// graph.setEnabled(false); // does nothing
 	// graph.setCellsBendable(false); // does nothing
 	// graph.setCellsDisconnectable(false); // does nothing

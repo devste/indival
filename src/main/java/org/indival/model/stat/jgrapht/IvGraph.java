@@ -105,12 +105,12 @@ public class IvGraph extends DirectedAcyclicGraph<IvNode, IvEdge> {
 		Object sourceCell = mxgModel.getCell(source.getIdentifier());
 		Object destCell = mxgModel.getCell(dest.getIdentifier());
 		if (sourceCell == null) {
-		    mxg.insertVertex(parent, source.getIdentifier(), source, 0 + 100 * displayOffset,
-			    0 + 20 * displayOffset, 100, 50, source.getType().name());
+		    mxg.insertVertex(parent, source.getIdentifier(), source, 100,
+			    100, 150, 60, source.getType().name());
 		}
 		if (destCell == null) {
-		    mxg.insertVertex(parent, dest.getIdentifier(), dest, 0 + 100 * (displayOffset + 1),
-			    0 + 20 * (displayOffset + 1), 100, 50, dest.getType().name());
+		    mxg.insertVertex(parent, dest.getIdentifier(), dest, 100,
+			    100, 150, 60, dest.getType().name());
 		}
 		sourceCell = mxgModel.getCell(source.getIdentifier());
 		destCell = mxgModel.getCell(dest.getIdentifier());
