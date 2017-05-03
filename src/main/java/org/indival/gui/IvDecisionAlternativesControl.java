@@ -72,6 +72,7 @@ public class IvDecisionAlternativesControl extends JPanel implements ActionListe
 	IvNodeAlternativeDyn alternative = this.alternatives.get(command);
 	IvNodeDecisionDyn ancestor = alternative.getAncestor();
 	ancestor.setSelectedAlternative(command);
+	this.mainWindow.setCellStyleSetSelected(ancestor.getIdentifier());
 	this.mainWindow.updateID();
     }
 

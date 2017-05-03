@@ -8,33 +8,39 @@ import com.mxgraph.view.mxStylesheet;
 
 public class Stylesheet {
 
-    private Stylesheet() {
+	private Stylesheet() {
 
-    }
+	}
 
-    public static void applyStylesheet(mxGraph graph) {
-	mxStylesheet stylesheet = graph.getStylesheet();
+	public static void applyStylesheet(mxGraph graph) {
+		mxStylesheet stylesheet = graph.getStylesheet();
 
-	// Style for decision node
-	HashMap<String, Object> decision = new HashMap<>();
-	decision.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_RECTANGLE);
-	stylesheet.putCellStyle("DECISION", decision);
+		// Style for decision node
+		HashMap<String, Object> decision = new HashMap<>();
+		decision.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_RECTANGLE);
+		stylesheet.putCellStyle("DECISION", decision);
 
-	// Style for uncertainty node
-	HashMap<String, Object> uncertainty = new HashMap<>();
-	uncertainty.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ELLIPSE);
-	stylesheet.putCellStyle("UNCERTAINTY", uncertainty);
-	stylesheet.putCellStyle("CHANCE", uncertainty);
+		// Style for decision node
+		HashMap<String, Object> decisionSelected = new HashMap<>();
+		decisionSelected.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_RECTANGLE);
+		decisionSelected.put(mxConstants.STYLE_FILLCOLOR, "green");
+		stylesheet.putCellStyle("DECISION_SELECTED", decisionSelected);
 
-	// Style for value node
-	HashMap<String, Object> value = new HashMap<>();
-	value.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_HEXAGON);
-	stylesheet.putCellStyle("VALUE", value);
+		// Style for uncertainty node
+		HashMap<String, Object> uncertainty = new HashMap<>();
+		uncertainty.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ELLIPSE);
+		stylesheet.putCellStyle("UNCERTAINTY", uncertainty);
+		stylesheet.putCellStyle("CHANCE", uncertainty);
 
-	// Style for a decision option
-	HashMap<String, Object> decisionOption = new HashMap<>();
-	decisionOption.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_TRIANGLE);
-	stylesheet.putCellStyle("OPTION", decisionOption);
-    }
+		// Style for value node
+		HashMap<String, Object> value = new HashMap<>();
+		value.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_HEXAGON);
+		stylesheet.putCellStyle("VALUE", value);
+
+		// Style for a decision option
+		HashMap<String, Object> decisionOption = new HashMap<>();
+		decisionOption.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_TRIANGLE);
+		stylesheet.putCellStyle("OPTION", decisionOption);
+	}
 
 }

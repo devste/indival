@@ -194,6 +194,16 @@ public class IvMainWindow extends JFrame {
     }
 
     /*
+     * Updates a cell to display the selected styling.
+     */
+    public void setCellStyleSetSelected(String nodeId){
+    	log.info("Updating cell style");
+		Object cell = this.project.getStaticMxgModel().getCell(nodeId);
+		Object[] cells = {cell};
+		this.project.getStaticMxGraph().setCellStyle("DECISION_SELECTED", cells);
+    }
+    
+    /*
      * Updates the influence diagramme. Should usually be triggered by events.
      */
     public void updateID() {
